@@ -32,4 +32,5 @@
 *.app
 
 # Input images
+build/*
 images/*
