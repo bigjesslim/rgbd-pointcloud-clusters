@@ -132,7 +132,8 @@ int main(int argc, char **argv) {
         std::cerr << "usage: main <depth/rgb image name> <z weight> <epsilon> <min points> \n";
         return 1;
     }
-    // load depth map into 1D vector (x,y,z)
+    //////////////////////////////////////// LOADING IMAGES ////////////////////////////////////////
+    // Load depth map into 1D vector (x,y,z)
     string depth_map_path = "../images/depth/" + string(argv[1]) + ".png";
     string rgb_image_path =  "../images/rgb/" + string(argv[1]) + ".png";
     cv::Mat depth_map = cv::imread(depth_map_path, cv::IMREAD_ANYDEPTH);
@@ -142,6 +143,8 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    ////////////////////////////////////// COLLECTING XYZ VALUES /////////////////////////////////
+    // Load depth map into 1D vector (x,y,z)
     std::vector<float> values;
     int step = 5; // downsampling by 5
     for (int i = 0; i < depth_map.rows; i+=step) {
@@ -153,7 +156,8 @@ int main(int argc, char **argv) {
     }
     cout << values.size() << endl;
 
-    // dbscan clustering 
+    //////////////////////////////////////// CLUSTERING ////////////////////////////////////////
+    // DBSCAN clustering 
     auto z_weight  = to_num<float>(argv[2]);
     auto epsilon  = to_num<float>(argv[3]);
     auto min_pts  = to_num<int>  (argv[4]);
@@ -169,9 +173,9 @@ int main(int argc, char **argv) {
     clusters = dbscan3d(values, epsilon, min_pts);
     printf("time taken for clustering: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
 
-    // making and saving 2d visualization
-    // loading the PNG image
-    cv::Mat image = cv::imread(rgb_image_path, cv::IMREAD_UNCHANGED);
+    /////////////////////////////////////// VISUALISATION //////////////////////////////////////
+    // Making and saving 2d visualization
+    cv::Mat image = cv::imread(rgb_image_path, cv::IMREAD_UNCHANGED); // loading the PNG image
 
     if (image.empty()) {
         std::cout << rgb_image_path << std::endl;
@@ -185,7 +189,7 @@ int main(int argc, char **argv) {
     cv::Mat colorImg;
     cv::cvtColor(grayImage,colorImg,cv::COLOR_GRAY2BGR);
 
-    // creating cluster colours
+    // Creating cluster colours
     //int max_clusters;
     //max_clusters = std::ceil(std::max_element(clusters.begin(), clusters.end()));
     std::vector<cv::Scalar> cluster_colours;
@@ -195,8 +199,8 @@ int main(int argc, char **argv) {
 		cluster_colours.push_back(colour);
 	}
 
-    // draw points on the grayscale image
-    float font_size = 0.15;//Declaring the font size//
+    // Draw points on the grayscale image
+    float font_size = 0.15;
     float font_weight = 0.03;
     cv::Point2f point;
     for (int i=0; i<points.size(); i++) {
@@ -208,7 +212,7 @@ int main(int argc, char **argv) {
     //colors[clusters[i]]
     cv::imshow("Grayscale Image with Points", colorImg);
 
-    // saving under the format image_zweight_eps_minpoints
+    // Saving under the format image_zweight_eps_minpoints
     std::ostringstream oss;
     oss << std::fixed << std::setprecision(1) << z_weight; 
     std::string zweightString = oss.str();
