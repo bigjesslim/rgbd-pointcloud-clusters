@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/home/bigjesslim/projects/viz_cluster/build",
+  "command": "/usr/bin/g++ -DHAVE_EIGEN -DHAVE_GLEW -DHAVE_PYTHON -DPANGO_DEFAULT_WIN_URI=\\\"wayland\\\" -D_LINUX_ -I/home/bigjesslim/projects/viz_cluster/dbscan/nanoflann -isystem /usr/local/include/eigen3 -isystem /usr/include/opencv4  -Wall   -O3 -std=c++20 -g -o CMakeFiles/viz_cluster.dir/main.cpp.o -c /home/bigjesslim/projects/viz_cluster/main.cpp",
+  "file": "/home/bigjesslim/projects/viz_cluster/main.cpp"
+},
+{
+  "directory": "/home/bigjesslim/projects/viz_cluster/build",
+  "command": "/usr/bin/g++ -DHAVE_EIGEN -DHAVE_GLEW -DHAVE_PYTHON -DPANGO_DEFAULT_WIN_URI=\\\"wayland\\\" -D_LINUX_ -I/home/bigjesslim/projects/viz_cluster/dbscan/nanoflann -isystem /usr/local/include/eigen3 -isystem /usr/include/opencv4  -Wall   -O3 -std=c++20 -g -o CMakeFiles/viz_cluster_2d.dir/viz_cluster_2d.cpp.o -c /home/bigjesslim/projects/viz_cluster/viz_cluster_2d.cpp",
+  "file": "/home/bigjesslim/projects/viz_cluster/viz_cluster_2d.cpp"
+},
+{
+  "directory": "/home/bigjesslim/projects/viz_cluster/build",
+  "command": "/usr/bin/g++ -DHAVE_EIGEN -DHAVE_GLEW -DHAVE_PYTHON -DPANGO_DEFAULT_WIN_URI=\\\"wayland\\\" -D_LINUX_ -I/home/bigjesslim/projects/viz_cluster/dbscan/nanoflann -isystem /usr/local/include/eigen3 -isystem /usr/include/opencv4  -Wall   -O3 -std=c++20 -g -o CMakeFiles/to_point_cloud.dir/to_point_cloud.cpp.o -c /home/bigjesslim/projects/viz_cluster/to_point_cloud.cpp",
+  "file": "/home/bigjesslim/projects/viz_cluster/to_point_cloud.cpp"
+},
+{
+  "directory": "/home/bigjesslim/projects/viz_cluster/build",
+  "command": "/usr/bin/g++ -DHAVE_EIGEN -DHAVE_GLEW -DHAVE_PYTHON -DPANGO_DEFAULT_WIN_URI=\\\"wayland\\\" -D_LINUX_ -I/home/bigjesslim/projects/viz_cluster/dbscan/nanoflann -isystem /usr/local/include/eigen3 -isystem /usr/include/opencv4  -Wall   -O3 -std=c++20 -g -o CMakeFiles/to_fp_cloud.dir/to_fp_cloud.cpp.o -c /home/bigjesslim/projects/viz_cluster/to_fp_cloud.cpp",
+  "file": "/home/bigjesslim/projects/viz_cluster/to_fp_cloud.cpp"
+},
+{
+  "directory": "/home/bigjesslim/projects/viz_cluster/build",
+  "command": "/usr/bin/g++ -I/usr/local/include/eigen3 -I/home/bigjesslim/projects/viz_cluster/dbscan/nanoflann  -Wall   -O3 -std=c++20 -g -o CMakeFiles/dbscan.dir/dbscan/dbscan.cpp.o -c /home/bigjesslim/projects/viz_cluster/dbscan/dbscan.cpp",
+  "file": "/home/bigjesslim/projects/viz_cluster/dbscan/dbscan.cpp"
+}
+]
