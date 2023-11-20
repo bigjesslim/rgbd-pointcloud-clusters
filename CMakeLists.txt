@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
-project(viz_cluster)
+project(main)
 
-add_executable(viz_cluster main.cpp)
+add_executable(main main.cpp)
 add_executable(viz_cluster_2d viz_cluster_2d.cpp)
 add_executable(to_point_cloud to_point_cloud.cpp)
 add_executable(to_fp_cloud to_fp_cloud.cpp)
