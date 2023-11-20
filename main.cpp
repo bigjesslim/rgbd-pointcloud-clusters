@@ -129,7 +129,7 @@ auto dbscan3d(const std::span<const float>& data, float eps, int min_pts)
 int main(int argc, char **argv) {
     if(argc != 5)
     {
-        std::cerr << "usage: main <depth/rgb image name> <z weight> <epsilon> <min points> \n";
+        std::cerr << "usage: main <depth and rgb image name> <z weight> <epsilon> <min points> \n";
         return 1;
     }
     //////////////////////////////////////// LOADING IMAGES ////////////////////////////////////////
@@ -149,9 +149,12 @@ int main(int argc, char **argv) {
     int step = 5; // downsampling by 5
     for (int i = 0; i < depth_map.rows; i+=step) {
         for (int j = 0; j < depth_map.cols; j+=step) {
-            values.push_back(j); // x
-            values.push_back(i); // y
-            values.push_back(static_cast<int>(depth_map.at<ushort>(i, j))); // z
+            int z = static_cast<int>(depth_map.at<ushort>(i, j));
+            if (z != 0){
+                values.push_back(j); // x
+                values.push_back(i); // y
+                values.push_back(z); // z
+            }
         }
     }
     cout << values.size() << endl;
@@ -225,8 +228,59 @@ int main(int argc, char **argv) {
     std::string epsilonString = oss.str();
     epsilonString.erase(std::remove(epsilonString.begin(), epsilonString.end(), '.'), epsilonString.end());
 
-    string output_viz_path = "../viz/" + string(argv[1]) + "_" + zweightString + "_" + epsilonString + "_" + to_string(min_pts)  + ".png";
+    string output_viz_path = "../viz_nobg/" + string(argv[1]) + "_" + zweightString + "_" + epsilonString + "_" + to_string(min_pts)  + ".png";
     cv::imwrite(output_viz_path, colorImg, {cv::IMWRITE_PNG_COMPRESSION, 0});
+
+    /////////////////////////////////////// PREPROCESSING ///////////////////////////////////////
+    // Reformat clusters into vector<vector> (using clusters and points)
+    std::vector<std::vector<std::vector<int>>> cluster_vectors;
+    size_t maxCluster = *std::max_element(clusters.begin(), clusters.end());
+    cluster_vectors.resize(maxCluster + 1);
+
+    for (int i = 0; i < clusters.size(); i++){
+        std::vector<int> xy_coords = {static_cast<int>(std::round(points[i][0])), static_cast<int>(std::round(points[i][1]))};
+        cluster_vectors[clusters[i]].push_back(xy_coords);
+    }
+
+    // Create bitmap
+    int width = 128;
+    int height = 96;
+
+    //cv::Mat binaryImage(height, width, CV_8UC1, cv::Scalar(0)); // CV_8UC1 restricts pixels to 0/1
+    cv::Mat grayscaleImage(height, width, CV_8UC1, cv::Scalar(0));
+    int num_sections = 0;
+    for(int i=1;i<cluster_vectors.size();i++){ // starts from 1 because cluster[0] are the cluster outliers
+        int cluster_size = cluster_vectors[i].size();
+        if (cluster_size > 50) {
+            num_sections ++;
+            for (int j=0;j<cluster_size;j++) {
+                std::vector<int> xy_coords = cluster_vectors[i][j];
+                grayscaleImage.at<uchar>(static_cast<int>(xy_coords[1]/5), static_cast<int>(xy_coords[0]/5)) = 1;
+            }
+
+            cv::Mat resizedImage; 
+            cv::resize(grayscaleImage, resizedImage, cv::Size(), 5, 5, cv::INTER_NEAREST);
+
+            cv::Mat maskedImage;
+            cv::bitwise_and(image, image, maskedImage, resizedImage);
+
+            cv::imshow("Masked image " + to_string(num_sections), maskedImage);
+
+            int key = 0;
+            while (true) {
+                int key = cv::waitKey(500); 
+
+                if (key == 13) {  // ASCII value for Enter key
+                    break;
+                }
+            }
+
+            maskedImage.setTo(0);
+            grayscaleImage.setTo(0);
+            resizedImage.setTo(0);
+        }
+    }
+    
     return 0;
 
 }
