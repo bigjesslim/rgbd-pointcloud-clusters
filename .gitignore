@@ -36,3 +36,4 @@ build/*
 images/*
 viz/*
 viz_nobg/*
+masked_images/*
