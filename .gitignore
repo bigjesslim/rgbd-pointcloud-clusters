@@ -34,3 +34,5 @@
 # Input images
 build/*
 images/*
+viz/*
+viz_nobg/*
