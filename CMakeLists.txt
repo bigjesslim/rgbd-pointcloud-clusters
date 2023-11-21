@@ -1,10 +1,11 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.14)
 project(main)
 
 add_executable(main main.cpp)
 add_executable(viz_cluster_2d viz_cluster_2d.cpp)
 add_executable(to_point_cloud to_point_cloud.cpp)
 add_executable(to_fp_cloud to_fp_cloud.cpp)
+add_executable(classify_clusters classify_clusters.cpp)
 
 IF(NOT CMAKE_BUILD_TYPE)
   SET(CMAKE_BUILD_TYPE Release)
@@ -19,10 +20,12 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
 
 # Check C++11 or C++0x support
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
+list(APPEND CMAKE_PREFIX_PATH "/usr/local")
 
 find_package(Eigen3 3.1.0 REQUIRED)
 find_package(Pangolin REQUIRED)
 find_package(OpenCV 4.4 REQUIRED)
+find_package(Torch REQUIRED)
 
 include_directories(
 ${EIGEN3_INCLUDE_DIR}
@@ -58,4 +61,9 @@ target_link_libraries(viz_cluster_2d
 ${Pangolin_LIBRARIES}
 ${OpenCV_LIBS}
 dbscan
+)
+
+target_link_libraries(classify_clusters
+${OpenCV_LIBS}
+${TORCH_LIBRARIES}
 )
