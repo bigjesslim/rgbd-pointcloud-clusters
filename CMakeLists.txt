@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 project(main)
 
-add_executable(main main.cpp)
-add_executable(viz_cluster_2d viz_cluster_2d.cpp)
-add_executable(to_point_cloud to_point_cloud.cpp)
-add_executable(to_fp_cloud to_fp_cloud.cpp)
-add_executable(classify_clusters classify_clusters.cpp)
-
 IF(NOT CMAKE_BUILD_TYPE)
   SET(CMAKE_BUILD_TYPE Release)
 ENDIF()
@@ -38,32 +32,33 @@ dbscan/dbscan.hpp
 dbscan/dbscan.cpp
 )
 
-
-target_link_libraries(${PROJECT_NAME}
-${Pangolin_LIBRARIES}
-${OpenCV_LIBS}
-dbscan
+add_library(src
+src/utils.h
+src/utils.cc
+src/cluster.h
+src/cluster.cc
 )
 
-target_link_libraries(to_point_cloud
-${Pangolin_LIBRARIES}
-${OpenCV_LIBS}
-dbscan
-)
+target_include_directories(src PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-target_link_libraries(to_fp_cloud
-${Pangolin_LIBRARIES}
-${OpenCV_LIBS}
-dbscan
-)
+add_executable(main main.cpp)
+add_executable(viz_cluster_crop viz_cluster_crop.cpp)
+add_executable(viz_cluster_2d viz_cluster_2d.cpp)
+add_executable(to_point_cloud to_point_cloud.cpp)
+add_executable(to_fp_cloud to_fp_cloud.cpp)
+add_executable(classify_clusters classify_clusters.cpp)
 
-target_link_libraries(viz_cluster_2d
+target_link_libraries(src
 ${Pangolin_LIBRARIES}
-${OpenCV_LIBS}
-dbscan
-)
-
-target_link_libraries(classify_clusters
 ${OpenCV_LIBS}
 ${TORCH_LIBRARIES}
+dbscan
 )
+
+
+target_link_libraries(main PRIVATE src)
+target_link_libraries(viz_cluster_crop PRIVATE src)
+target_link_libraries(to_point_cloud PRIVATE src)
+target_link_libraries(to_fp_cloud PRIVATE src)
+target_link_libraries(viz_cluster_2d PRIVATE src)
+target_link_libraries(classify_clusters PRIVATE src)
