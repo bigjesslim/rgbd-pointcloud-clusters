@@ -36,10 +36,12 @@ build/*
 images/*
 viz/*
 viz_nobg/*
-masked_images/*
+tumrgbd_slam_data/*
 CMakeFiles/*
-cropped_images/*
-mc_images/*
-mcw_images/*
-.gitignore
-.gitignore
+
+
+# Weights
+weights/*
+
+# VSCode stuff
+.vscode/settings.json
