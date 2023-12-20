@@ -37,7 +37,8 @@ images/*
 viz/*
 viz_nobg/*
 tumrgbd_slam_data/*
-CMakeFiles/*
+data_tumrgbd/*
+data_sunrgbd_sample/*
 
 
 # Weights
@@ -45,3 +46,7 @@ weights/*
 
 # VSCode stuff
 .vscode/settings.json
+
+# Build stuff
+CMakeFiles/*
+debug/*
