@@ -50,7 +50,9 @@ log/*
 
 # VSCode stuff
 .vscode/settings.json
+.vscode/*
 
 # Build stuff
 CMakeFiles/*
 debug/*
+.vscode/settings.json
