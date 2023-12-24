@@ -1,6 +1,55 @@
 #include "utils.h"
 
 
+std::vector<std::string> read_txt_to_vector(const std::string& file_path) {
+    std::vector<std::string> lines;
+    std::ifstream file(file_path);
+
+    if (file.is_open()) {
+        std::string line;
+        while (std::getline(file, line)) {
+            lines.push_back(line);
+        }
+        file.close();
+    } else {
+        std::cerr << "Unable to open file: " << file_path << std::endl;
+    }
+
+    return lines;
+}
+
+
+std::vector<std::vector<int>> load_ade_to_sunrgbd_mapping(const std::string& filename) {
+    std::ifstream inputFile(filename);
+    std::string line;
+    std::vector<std::vector<int>> map_vector;
+
+    while (std::getline(inputFile, line)) {
+        std::stringstream ss(line);
+        std::string token;
+        std::vector<int> current_vec;
+
+        while (std::getline(ss, token, ']')) {
+            size_t pos = token.find('[');
+            std::string values = token.substr(pos + 1);
+            std::stringstream valuesStream(values);
+            std::string value;
+
+            while (std::getline(valuesStream, value, ',')) {
+                if (!(value.empty() || std::all_of(value.begin(), value.end(), ::isspace))){
+                    current_vec.push_back(std::stoi(value));
+                }
+            }
+        }
+
+        map_vector.push_back(current_vec);
+    }
+
+    inputFile.close();
+
+    return map_vector;
+}
+
 template<typename T> std::vector<std::vector<T>> convertTo2DVector(const std::vector<T>& inputVector, size_t valuesPerSubVector) {
     std::vector<std::vector<T>> outputVector;
 
@@ -19,8 +68,11 @@ template std::vector<std::vector<float>> convertTo2DVector(const std::vector<flo
 
 std::vector<float> toXYZ(cv::Mat depth_map, int step){
     std::vector<float> values;
-    for (int i = 0; i < depth_map.rows; i+=step) {
-        for (int j = 0; j < depth_map.cols; j+=step) {
+    int max_rows = (depth_map.rows/step) * step; 
+    int max_cols = (depth_map.cols/step) * step; 
+
+    for (int i = 0; i < max_rows; i+=step) {
+        for (int j = 0; j < max_cols; j+=step) {
             int z = static_cast<int>(depth_map.at<ushort>(i, j));
             if (z != 0){
                 values.push_back(j); // x
@@ -135,7 +187,7 @@ std::vector<size_t> normalizeAndCluster(const std::string& z_weight_str, const s
 
 }
 
-cv::Mat paddingAndResize(const cv::Mat& image, const cv::Size& size) {
+void paddingAndResize(cv::Mat& image, const cv::Size& size) {
     int height = image.size[0];
     int width = image.size[1];
 
@@ -143,43 +195,49 @@ cv::Mat paddingAndResize(const cv::Mat& image, const cv::Size& size) {
     // std::cout << std::to_string(image.size[0]) << std::endl;
     // std::cout << std::to_string(image.size[1]) <<std::endl;
 
-    cv::Mat padded_img;
-
     if (width > height) {
         // pad vertically
         int total_pad_value = width - height;
         int top_pad_value = total_pad_value / 2;
         int bottom_pad_value = total_pad_value - top_pad_value;
-        cv::copyMakeBorder(image, padded_img, top_pad_value, bottom_pad_value, 0, 0, cv::BORDER_CONSTANT, cv::Scalar(0));
+        cv::copyMakeBorder(image, image, top_pad_value, bottom_pad_value, 0, 0, cv::BORDER_CONSTANT, cv::Scalar(0));
     } else if (height > width) {
         // pad horizontally
-        std::cout << "horizontal padding" << std::endl;
         int total_pad_value = height - width;
         int left_pad_value = total_pad_value / 2;
         int right_pad_value = total_pad_value - left_pad_value;
-        cv::copyMakeBorder(image, padded_img, 0, 0, left_pad_value, right_pad_value, cv::BORDER_CONSTANT, cv::Scalar(0));
-    } else {
-        padded_img = image.clone();
+        cv::copyMakeBorder(image, image, 0, 0, left_pad_value, right_pad_value, cv::BORDER_CONSTANT, cv::Scalar(0));
     }
-    cv::Mat resized_image;
-    cv::resize(padded_img, resized_image, size);
 
-    return resized_image;
+    // Resize the image in-place
+    cv::resize(image, image, size);
 }
 
-torch::Tensor padTensor(const torch::Tensor& input_tensor) {
+
+torch::Tensor padAndResizeTensor(const torch::Tensor& input_tensor) {
     int original_height = input_tensor.size(2);
     int original_width = input_tensor.size(3);
+    torch::Tensor padded_tensor;
 
     // Calculate the padding needed on both sides 
-    int padding_updown = (original_width - original_height)/2; // assumes landscape photo
-
-    // Pad the tensor to achieve the target width
-    torch::Tensor padded_tensor = torch::nn::functional::pad(
-        input_tensor,
-        torch::nn::functional::PadFuncOptions({0, 0, padding_updown, padding_updown}).mode(torch::kConstant).value(0)
-    );
-
+    if (original_height < original_width){
+        int padding_updown = (original_width - original_height)/2; // landscape crop
+        padded_tensor = torch::nn::functional::pad(
+            input_tensor,
+            torch::nn::functional::PadFuncOptions({0, 0, padding_updown, padding_updown}).mode(torch::kConstant).value(0)
+        );
+    } else {
+        if (original_width < original_height){
+            int padding_lr = (original_height - original_width)/2; // portrait crop
+            padded_tensor = torch::nn::functional::pad(
+                input_tensor,
+                torch::nn::functional::PadFuncOptions({padding_lr, padding_lr, 0, 0}).mode(torch::kConstant).value(0)
+            );
+        }
+        else {
+            padded_tensor = input_tensor;
+        }
+    }
 
     torch::Tensor resized_tensor = torch::nn::functional::interpolate(
         padded_tensor, 
@@ -187,4 +245,29 @@ torch::Tensor padTensor(const torch::Tensor& input_tensor) {
     );
 
     return resized_tensor;
+}
+
+double calculateIoU(const cv::Mat& mask1, const cv::Mat& mask2) {
+    // Check if the input masks have the same size
+    if (mask1.size() != mask2.size()) {
+        std::cerr << "Error: Masks must have the same size for IoU calculation." << std::endl;
+        return -1.0;
+    }
+
+    // Convert masks to CV_8UC1 type if not already
+
+    // Compute intersection
+    cv::Mat intersection = mask1 & mask2;
+
+    // Compute union
+    cv::Mat unionMask = mask1 | mask2;
+
+    // Calculate areas
+    double intersectionArea = cv::countNonZero(intersection);
+    double unionArea = cv::countNonZero(unionMask);
+
+    // Calculate IoU
+    double iou = (unionArea > 0) ? (intersectionArea / unionArea) : 0.0;
+
+    return iou;
 }
