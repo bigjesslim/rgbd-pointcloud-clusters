@@ -1,249 +1,249 @@
-0: 'air conditioner, air conditioning',
-1: 'food, solid food',
-2: 'footboard',
-3: 'fork',
-4: 'frame',
-5: 'ball',
-6: 'front',
-7: 'fruit',
-8: 'glass, drinking glass',
-9: 'grill, grille, grillwork',
-10: 'gym shoe, sneaker, tennis shoe',
-11: 'hair',
-12: 'hand',
-13: 'handle',
-14: 'hanger',
-15: 'hat, chapeau, lid',
-16: 'bannister, banister, balustrade, balusters, handrail',
-17: 'head',
-18: 'headboard',
-19: 'heater, warmer',
-20: 'bar',
-21: 'highlight',
-22: 'hinge',
-23: 'hood, exhaust hood',
-24: 'barrel, cask',
-25: 'inside arm',
-26: 'jacket',
-27: 'jar',
-28: 'base',
-29: 'kettle, boiler',
-30: 'base, pedestal, stand',
-31: 'keyboard',
-32: 'kitchen island',
-33: 'knife',
-34: 'knob',
-35: 'lamp',
-36: 'laptop, laptop computer',
-37: 'left arm',
-38: 'left hand',
-39: 'left leg',
-40: 'leg',
-41: 'lid',
-42: 'light source',
-43: 'light, light source',
-44: 'basket, handbasket',
-45: 'loudspeaker, speaker, speaker unit, loudspeaker system, speaker system',
-46: 'lower sash',
-47: 'magazine',
-48: 'merchandise, ware, product',
-49: 'bathtub, bathing tub, bath, tub',
-50: 'microwave, microwave oven',
-51: 'mirror',
-52: 'monitor',
-53: 'monitor, monitoring device',
-54: 'beam',
-55: 'mouse',
-56: 'mouth',
-57: 'mug',
-58: 'muntin',
-59: 'napkin, table napkin, serviette',
-60: 'bed',
-61: 'nose',
-62: 'notebook',
-63: 'opening',
-64: 'ottoman, pouf, pouffe, puff, hassock',
-65: 'outside arm',
-66: 'oven',
-67: 'painting, picture',
-68: 'pallet',
-69: 'pane',
-70: 'paper',
-71: 'patty, cake',
-72: 'bench',
-73: 'pen',
-74: 'person, individual, someone, somebody, mortal, soul',
-75: 'pillow',
-76: 'pipe, pipage, piping',
-77: 'pitcher, ewer',
-78: 'place mat',
-79: 'plant, flora, plant life',
-80: 'plate',
-81: 'plaything, toy',
-82: 'pool ball',
-83: 'pool table, billiard table, snooker table',
-84: 'poster, posting, placard, notice, bill, card',
-85: 'pot',
-86: 'pot, flowerpot',
-87: 'pottery, clayware',
-88: 'blade',
-89: 'rack',
-90: 'radiator',
-91: 'rail',
-92: 'railing, rail',
-93: 'blanket, cover',
-94: 'refrigerator, icebox',
-95: 'remote control, remote',
-96: 'right arm',
-97: 'right hand',
-98: 'blind, screen',
-99: 'right leg',
-100: 'rod',
-101: 'rug, carpet, carpeting',
-102: 'board, plank',
-103: 'sash',
-104: 'sconce',
-105: 'screen',
-106: 'screen door, screen',
-107: 'sculpture',
-108: 'seat',
-109: 'seat base',
-110: 'seat cushion',
-111: 'shade',
-112: 'shelf',
-113: 'shirt',
-114: 'shoe',
-115: 'shower',
-116: 'book',
-117: 'side',
-118: 'side pocket',
-119: 'signboard, sign',
-120: 'sink',
-121: 'bookcase',
-122: 'skirt',
-123: 'booklet, brochure, folder, leaflet, pamphlet',
-124: 'sky',
-125: 'boot',
-126: 'soap',
-127: 'soap dispenser',
-128: 'sofa, couch, lounge',
-129: 'bottle',
-130: 'spindle',
-131: 'spoon',
-132: 'spotlight, spot',
-133: 'stairway, staircase',
-134: 'step, stair',
-135: 'stile',
-136: 'stool',
-137: 'bowl',
-138: 'stove',
-139: 'stove, kitchen stove, range, kitchen range, cooking stove',
-140: 'stretcher',
-141: 'box',
-142: 'switch, electric switch, electrical switch',
-143: 'swivel chair',
-144: 'system',
-145: 'table',
-146: 'tap',
-147: 'teacup',
-148: 'teapot',
-149: 'telephone, phone, telephone set',
-150: 'television receiver, television, television set, tv, tv set, idiot box, boob tube, telly, goggle box',
-151: 'toaster',
-152: 'toilet tissue, toilet paper, bathroom tissue',
-153: 'toilet, can, commode, crapper, pot, potty, stool, throne',
-154: 'top',
-155: 'towel',
-156: 'towel rack, towel horse',
-157: 'tray',
-158: 'tree',
-159: 'bread, breadstuff, staff of life',
-160: 'tube',
-161: 'upper sash',
-162: 'vase',
-163: 'videos',
-164: 'wall',
-165: 'wall socket, wall plug, electric outlet, electrical outlet, outlet, electric receptacle',
-166: 'wardrobe, closet, press',
-167: 'washer, automatic washer, washing machine',
-168: 'bucket, pail',
-169: 'wheel',
-170: 'window',
-171: 'windowpane, window',
-172: 'buffet, counter, sideboard',
-173: 'work surface',
-174: 'screen, crt screen',
-175: 'building, edifice',
-176: 'bulb',
-177: 'bulletin board, notice board',
-178: 'burner',
-179: 'button panel',
-180: 'buttons',
-181: 'cabinet',
-182: 'aperture',
-183: 'can, tin, tin can',
-184: 'candle, taper, wax light',
-185: 'candlestick, candle holder',
-186: 'apparel, wearing apparel, dress, clothes',
-187: 'canister, cannister, tin',
-188: 'canopy',
-189: 'cap',
-190: 'car, auto, automobile, machine, motorcar',
-191: 'apron',
-192: 'case, display case, showcase, vitrine',
-193: 'ceiling',
-194: 'chain',
-195: 'arcade machine',
-196: 'chair',
-197: 'chandelier, pendant, pendent',
-198: 'chest',
-199: 'chest of drawers, chest, bureau, dresser',
-200: 'cistern',
-201: 'clock',
-202: 'arm',
-203: 'arm panel',
-204: 'arm support',
-205: 'coffee maker',
-206: 'armchair',
-207: 'coffee table, cocktail table',
-208: 'column',
-209: 'column, pillar',
-210: 'computer case',
-211: 'computer, computing machine, computing device, data processor, electronic computer, information processing system',
-212: 'console table, console',
-213: 'cord',
-214: 'corner pocket',
-215: 'counter',
-216: 'countertop',
-217: 'ashcan, trash can, garbage can, wastebin, ash bin, ash-bin, ashbin, dustbin, trash barrel, trash bin',
-218: 'cue, cue stick, pool cue, pool stick',
-219: 'cup',
-220: 'curtain, drape, drapery, mantle, pall',
-221: 'cushion',
-222: 'desk',
-223: 'dial',
-224: 'diffusor',
-225: 'dishrag, dishcloth',
-226: 'dishwasher, dish washer, dishwashing machine',
-227: 'document, written document, papers',
-228: 'door',
-229: 'door frame',
-230: 'doorframe, doorcase',
-231: 'double door',
-232: 'drawer',
-233: 'back',
-234: 'ear',
-235: 'back pillow',
-236: 'eye',
-237: 'face',
-238: 'fan',
-239: 'faucet',
-240: 'faucet, spigot',
-241: 'figurine, statuette',
-242: 'backplate',
-243: 'fireplace, hearth, open fireplace',
-244: 'bag',
-245: 'bag, handbag, pocketbook, purse',
-246: 'floor, flooring',
-247: 'flower',
-248: 'fluorescent, fluorescent fixture'
+air conditioner, air conditioning
+food, solid food
+footboard
+fork
+frame
+ball
+front
+fruit
+glass, drinking glass
+grill, grille, grillwork
+gym shoe, sneaker, tennis shoe
+hair
+hand
+handle
+hanger
+hat, chapeau, lid
+bannister, banister, balustrade, balusters, handrail
+head
+headboard
+heater, warmer
+bar
+highlight
+hinge
+hood, exhaust hood
+barrel, cask
+inside arm
+jacket
+jar
+base
+kettle, boiler
+base, pedestal, stand
+keyboard
+kitchen island
+knife
+knob
+lamp
+laptop, laptop computer
+left arm
+left hand
+left leg
+leg
+lid
+light source
+light, light source
+basket, handbasket
+loudspeaker, speaker, speaker unit, loudspeaker system, speaker system
+lower sash
+magazine
+merchandise, ware, product
+bathtub, bathing tub, bath, tub
+microwave, microwave oven
+mirror
+monitor
+monitor, monitoring device
+beam
+mouse
+mouth
+mug
+muntin
+napkin, table napkin, serviette
+bed
+nose
+notebook
+opening
+ottoman, pouf, pouffe, puff, hassock
+outside arm
+oven
+painting, picture
+pallet
+pane
+paper
+patty, cake
+bench
+pen
+person, individual, someone, somebody, mortal, soul
+pillow
+pipe, pipage, piping
+pitcher, ewer
+place mat
+plant, flora, plant life
+plate
+plaything, toy
+pool ball
+pool table, billiard table, snooker table
+poster, posting, placard, notice, bill, card
+pot
+pot, flowerpot
+pottery, clayware
+blade
+rack
+radiator
+rail
+railing, rail
+blanket, cover
+refrigerator, icebox
+remote control, remote
+right arm
+right hand
+blind, screen
+right leg
+rod
+rug, carpet, carpeting
+board, plank
+sash
+sconce
+screen
+screen door, screen
+sculpture
+seat
+seat base
+seat cushion
+shade
+shelf
+shirt
+shoe
+shower
+book
+side
+side pocket
+signboard, sign
+sink
+bookcase
+skirt
+booklet, brochure, folder, leaflet, pamphlet
+sky
+boot
+soap
+soap dispenser
+sofa, couch, lounge
+bottle
+spindle
+spoon
+spotlight, spot
+stairway, staircase
+step, stair
+stile
+stool
+bowl
+stove
+stove, kitchen stove, range, kitchen range, cooking stove
+stretcher
+box
+switch, electric switch, electrical switch
+swivel chair
+system
+table
+tap
+teacup
+teapot
+telephone, phone, telephone set
+television receiver, television, television set, tv, tv set, idiot box, boob tube, telly, goggle box
+toaster
+toilet tissue, toilet paper, bathroom tissue
+toilet, can, commode, crapper, pot, potty, stool, throne
+top
+towel
+towel rack, towel horse
+tray
+tree
+bread, breadstuff, staff of life
+tube
+upper sash
+vase
+videos
+wall
+wall socket, wall plug, electric outlet, electrical outlet, outlet, electric receptacle
+wardrobe, closet, press
+washer, automatic washer, washing machine
+bucket, pail
+wheel
+window
+windowpane, window
+buffet, counter, sideboard
+work surface
+screen, crt screen
+building, edifice
+bulb
+bulletin board, notice board
+burner
+button panel
+buttons
+cabinet
+aperture
+can, tin, tin can
+candle, taper, wax light
+candlestick, candle holder
+apparel, wearing apparel, dress, clothes
+canister, cannister, tin
+canopy
+cap
+car, auto, automobile, machine, motorcar
+apron
+case, display case, showcase, vitrine
+ceiling
+chain
+arcade machine
+chair
+chandelier, pendant, pendent
+chest
+chest of drawers, chest, bureau, dresser
+cistern
+clock
+arm
+arm panel
+arm support
+coffee maker
+armchair
+coffee table, cocktail table
+column
+column, pillar
+computer case
+computer, computing machine, computing device, data processor, electronic computer, information processing system
+console table, console
+cord
+corner pocket
+counter
+countertop
+ashcan, trash can, garbage can, wastebin, ash bin, ash-bin, ashbin, dustbin, trash barrel, trash bin
+cue, cue stick, pool cue, pool stick
+cup
+curtain, drape, drapery, mantle, pall
+cushion
+desk
+dial
+diffusor
+dishrag, dishcloth
+dishwasher, dish washer, dishwashing machine
+document, written document, papers
+door
+door frame
+doorframe, doorcase
+double door
+drawer
+back
+ear
+back pillow
+eye
+face
+fan
+faucet
+faucet, spigot
+figurine, statuette
+backplate
+fireplace, hearth, open fireplace
+bag
+bag, handbag, pocketbook, purse
+floor, flooring
+flower
+fluorescent, fluorescent fixture
