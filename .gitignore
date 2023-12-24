@@ -44,6 +44,10 @@ data_sunrgbd_sample/*
 # Weights
 weights/*
 
+# Logs
+old_log/*
+log/*
+
 # VSCode stuff
 .vscode/settings.json
 
