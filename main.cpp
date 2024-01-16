@@ -526,13 +526,47 @@ int main(int argc, char **argv) {
 
     if (loggingFile.is_open()) {
         // Log all classes metrics -> mAP@0.25 or mAP@0.5
-        torch::Tensor prec_all = torch::div(totalTP, torch::add(totalTP, totalFP));
-        torch::Tensor rec_all = torch::div(totalTP, torch::add(totalTP, totalFN));
-        torch::Tensor f1_all = 2 * torch::div(torch::mul(prec_all, rec_all), torch::add(prec_all, rec_all));
+        torch::Tensor v_small_tensor = torch::full({num_sunrgbd_classes}, 0.0001);
+
+        torch::Tensor tp_fp = torch::add(totalTP, totalFP);
+        torch::Tensor prec_indices = torch::nonzero(tp_fp).squeeze();
+        torch::Tensor prec_selected_TP = torch::index_select(totalTP, 0, prec_indices);
+        torch::Tensor prec_selected_FP = torch::index_select(totalFP, 0, prec_indices);
+        torch::Tensor prec_all = torch::div(prec_selected_TP, torch::add(prec_selected_TP, prec_selected_FP));
+
+        torch::Tensor tp_fn = torch::add(totalTP, totalFN);
+        torch::Tensor rec_indices = torch::nonzero(tp_fn).squeeze();
+        torch::Tensor rec_selected_TP = torch::index_select(totalTP, 0, rec_indices);
+        torch::Tensor rec_selected_FN = torch::index_select(totalFN, 0, rec_indices);
+        torch::Tensor rec_all = torch::div(rec_selected_TP, torch::add(rec_selected_TP, rec_selected_FN));
+        
+        //torch::Tensor f1_all = 2 * torch::div(torch::mul(prec_all, rec_all), torch::max(torch::add(prec_all, rec_all), v_small_tensor));
+
+        float mean_prec =  torch::mean(prec_all).item<float>();
+        float mean_rec =  torch::mean(rec_all).item<float>();
+        //float mean_f1 =  torch::mean(f1_all).item<float>();
+
+        loggingFile << "<Overall class metrics>" << endl;
+        loggingFile << "Classification: " << endl;
+        loggingFile << "mean precision: "  << to_string(mean_prec) << endl;
+        loggingFile << "mean recall: " << to_string(mean_rec) << endl;
+        //loggingFile << "mean f1: " << to_string(mean_f1) << endl;
+
+        torch::Tensor tp_indices = torch::nonzero(totalTP).squeeze();
+        torch::Tensor iou_all = torch::div(torch::index_select(totalIOU, 0, tp_indices), torch::index_select(totalTP, 0, tp_indices));
+        torch::Tensor dice_all = torch::div(torch::index_select(totalDICE, 0, tp_indices), torch::index_select(totalTP, 0, tp_indices));
+
+        float mean_iou =  torch::mean(iou_all).item<float>();
+        float mean_dice =  torch::mean(dice_all).item<float>();
+
+        loggingFile << endl << "Segmentation: " << endl;
+        loggingFile << "mIOU: " << to_string(mean_iou) << endl;
+        loggingFile << "mDICE: " << to_string(mean_dice) << endl;
 
 
         // Log person metrics
-        loggingFile << endl << "Classification: " << endl;
+        loggingFile << endl <<  endl << "<Person vs non-person metrics>" << endl;
+        loggingFile << "Classification: " << endl;
 
         float tp_person = totalTP[330].item<float>();
         float fp_person = totalFP[330].item<float>();
